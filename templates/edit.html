@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta charset="UTF-8" />
+  <title>Modifier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+      max-width: 500px;
+      margin: auto;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    img {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Modifier l'entrée</h2>
+
+  <form method="POST">
+    <label>Date / Heure :</label>
+    <input type="text" value="{{ data.datetime }}" readonly />
+
+    <label>Type :</label>
+    <select name="type" required>
+      <option value="Chapeaux" {% if data.type == "Chapeaux" %}selected{% endif %}>Chapeaux</option>
+      <option value="Plaque" {% if data.type == "Plaque" %}selected{% endif %}>Plaque</option>
+    </select>
+
+    <label>Ligne :</label>
+    <select name="ligne" required>
+      {% for num in range(11, 16) %}
+        <option value="{{ num }}" {% if data.ligne == num|string %}selected{% endif %}>{{ num }}</option>
+      {% endfor %}
+    </select>
+
+    {% if data.photo %}
+      <label>Photo actuelle :</label>
+      <img src="{{ url_for('static', filename='uploads/' ~ data.photo) }}" alt="Photo">
+    {% endif %}
+
+    <button type="submit">Enregistrer les modifications</button>
+  </form>
+
+</body>
+</html>
