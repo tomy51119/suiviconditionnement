@@ -28,7 +28,7 @@
       text-align: center;
     }
     th {
-      background-color: #007bff;
+      background-color: #00b1a0;
       color: white;
     }
     tr:hover {
@@ -87,7 +87,29 @@
   </select>
 
   <button type="submit">Filtrer</button>
-  <a href="{{ url_for('historique') }}" style="padding: 10px 15px; background: #ccc; color: #000; border-radius: 8px; text-decoration: none;">Réinitialiser</a>
+  <a href="{{ url_for('historique') }}" style="
+  padding: 10px 15px;
+  background-color: #00b1a0
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+">Réinitialiser</a>
+
+  
+  <a href="{{ url_for('index') }}" style="
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #00b1a0 !important;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+">
+  🏠 Accueil
+</a>
+
 </form>
 
   <table>
