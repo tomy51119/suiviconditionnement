@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulaire de Suivi</title>
+  <style>
+    .container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 900px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  gap: 30px;
+}
+
+.logo-container {
+  flex: 0 0 120px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.form-container {
+  flex: 1;
+  min-width: 250px;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      background-color: #f9f9f9;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+button {
+  background-color: #10ccb9;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0baea1;
+}
+
+  </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div id="flash-message" style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+      {{ messages[0] }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<body>
+
+  <div class="container">
+    <div class="content">
+      <!-- ✅ Logo à gauche -->
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo-formulaire.png') }}" alt="Logo" class="logo">
+      </div>
+<h2>Formulaire de Suivi</h2>
+  <form id="suiviForm" action="/submit" method="POST" enctype="multipart/form-data">
+    <label>Date et Heure</label>
+    <input type="text" id="datetime" name="datetime" readonly />
+
+    <label>Type</label>
+    <div class="radio-group">
+      <label><input type="radio" name="type" value="Chapeaux" required> Chapeaux</label>
+      <label><input type="radio" name="type" value="Plaque" required> Plaque</label>
+    </div>
+
+    <label>Sélectionner une ligne (11 à 15)</label>
+    <select name="selection" required>
+      <option value="">--Choisir--</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+    </select>
+
+    <label>Photo (prendre ou importer)</label>
+    <input type="file" accept="image/*" capture="environment" name="photo" required />
+
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <script>
+    document.getElementById("datetime").value = new Date().toLocaleString();
+  </script>
+  <script>
+  setTimeout(() => {
+    const flash = document.getElementById('flash-message');
+    if (flash) {
+      flash.style.transition = "opacity 0.5s ease-out";
+      flash.style.opacity = 0;
+      setTimeout(() => flash.remove(), 500);
+    }
+  }, 4000);
+</script>
+<a href="{{ url_for('login') }}" style="
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #00b1a0;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+">
+  Historique
+</a>
+
+</body>
+</html>
